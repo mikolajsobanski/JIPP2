@@ -6,3 +6,8 @@ add_subdirectory(simpleCalc)
 
 add_subdirectory(firstLib)
 add_subdirectory(firstLibCall)
+
+add_subdirectory(matrixLib)
+add_subdirectory(matrixApp)
+
+add_subdirectory(firstClass)
