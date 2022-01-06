@@ -2,24 +2,22 @@
  *
  * @param tabA macierz A typu int przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
  * @param tabB macierz B typu int przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
- * @param W macierz wynikowa typu int, suma z dodawania macierzy A i B
  * @param ilosc_wierszy zmienna przechowujaca ilosc wierszy w macierzy
  * @param ilosc_kolumn zmienna przechowujaca ilosc kolumn w macierzy
  * @details wartosci z poszczegolnych kolumn i wierszy z macierzy A i B  dodawane sa do siebie i zapisywane do macierzy wynikowej W
  * @return macierz wynikowa typu int, podwojny wskaznik
  */
-int addMatrix(int **tabA,int **tabB,int **W,int ilosc_wierszy,int ilosc_kolumn);
+int **addMatrix(int **tabA,int **tabB,int ilosc_wierszy,int ilosc_kolumn);
 /**
  *
  * @param tabA macierz A typu double przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
  * @param tabB macierz A typu double przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
- * @param W macierz wynikowa typu double, suma z dodawania macierzy A i B
  * @param ilosc_wierszy zmienna przechowujaca ilosc wierszy w macierzy
  * @param ilosc_kolumn zmienna przechowujaca ilosc kolumn w macierzy
  * @details wartosci z poszczegolnych kolumn i wierszy z macierzy A i B  dodawane sa do siebie i zapisywane do macierzy wynikowej W
  * @return macierz wynikowa typu double, podwojny wskaznik
  */
-double addMatrix(double **tabA,double **tabB,double **W,int ilosc_wierszy,int ilosc_kolumn);
+double **addMatrix(double **tabA,double **tabB,int ilosc_wierszy,int ilosc_kolumn);
 /**
  *
  * @param tabA macierz A typu int przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
@@ -30,7 +28,7 @@ double addMatrix(double **tabA,double **tabB,double **W,int ilosc_wierszy,int il
  * @details wartosci z poszczegolnych kolumn i wierszy z macierzy A i B  odejmowane sa do siebie i zapisywane do macierzy wynikowej W
  * @return macierz wynikowa typu int, podwojny wskaznik
  */
-int subtractMatrix (int **tabA,int **tabB,int **W,int ilosc_wierszy,int ilosc_kolumn);
+int **subtractMatrix (int **tabA,int **tabB,int ilosc_wierszy,int ilosc_kolumn);
 /**
  *
  * @param tabA macierz A typu double przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
@@ -41,7 +39,7 @@ int subtractMatrix (int **tabA,int **tabB,int **W,int ilosc_wierszy,int ilosc_ko
  * @details wartosci z poszczegolnych kolumn i wierszy z macierzy A i B  odejmowane sa od siebie i zapisywane do macierzy wynikowej W
  * @return macierz wynikowa typu double, podwojny wskaznik
  */
-double subtractMatrix (double **tabA,double **tabB,double **W,int ilosc_wierszy,int ilosc_kolumn);
+double **subtractMatrix (double **tabA,double **tabB,int ilosc_wierszy,int ilosc_kolumn);
 /**
  *
  * @param tabA macierz A typu int przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
@@ -54,7 +52,7 @@ double subtractMatrix (double **tabA,double **tabB,double **W,int ilosc_wierszy,
  * Wynikiem mnożenia dwóch macierzy jest nowa macierz, która posiada tyle wierszy, ile wierszy miała macierz A  oraz tyle kolumn, ile kolumn miała macierz B
  * @return macierz wynikowa typu int, podwojny wskaznik
  */
-int multiplyMatrix(int **tabA,int **tabB, int **W,int ilosc_wierszy,int ilosc_kolumn,int ilosc_kolumn_macierzB);
+int **multiplyMatrix(int **tabA,int **tabB,int ilosc_wierszy,int ilosc_kolumn,int ilosc_kolumn_macierzB);
 /**
  *
  * @param tabA macierz A typu double przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
@@ -67,8 +65,8 @@ int multiplyMatrix(int **tabA,int **tabB, int **W,int ilosc_wierszy,int ilosc_ko
  * Wynikiem mnożenia dwóch macierzy jest nowa macierz, która posiada tyle wierszy, ile wierszy miała macierz A  oraz tyle kolumn, ile kolumn miała macierz B
  * @return macierz wynikowa typu double, podwojny wskaznik
  */
-double multiplyMatrix(double **tabA,double **tabB, double **W,int ilosc_wierszy,int ilosc_kolumn,int ilosc_kolumn_macierzB);
-/**
+double **multiplyMatrix(double **tabA,double **tabB,int ilosc_wierszy,int ilosc_kolumn,int ilosc_kolumn_macierzB);
+/*/**
  *
  * @param tabA macierz A typu int przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
  * @param ilosc_wierszy zmienna przechowujaca ilosc wierszy w macierzy
@@ -77,8 +75,8 @@ double multiplyMatrix(double **tabA,double **tabB, double **W,int ilosc_wierszy,
  * @details  W mnożeniu macierzy przez skalar, każdy element macierzy zostaje pomnożony przez daną liczbę, czyli skalar.
  * @return tabA macierz A typu int po mnozeniu przez skalar
  */
-int multiplyByScalar(int **tabA,int ilosc_wierszy,int ilosc_kolumn,int c);
-/**
+int **multiplyByScalar(int **tabA,int ilosc_wierszy,int ilosc_kolumn,int c);
+/*/**
  *
  * @param tabA macierz A typu double przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
  * @param ilosc_wierszy zmienna przechowujaca ilosc wierszy w macierzy
@@ -86,8 +84,8 @@ int multiplyByScalar(int **tabA,int ilosc_wierszy,int ilosc_kolumn,int c);
  * @param c zmienna przechowujaca skalar typu double
  * @details  W mnożeniu macierzy przez skalar, każdy element macierzy zostaje pomnożony przez daną liczbę, czyli skalar.
  * @return tabA macierz A typu double po mnozeniu przez skalar
- */
-double multiplyByScalar(double **tabA,int ilosc_wierszy,int ilosc_kolumn,double c);
+ //*/
+double **multiplyByScalar(double **tabA,int ilosc_wierszy,int ilosc_kolumn,double c);
 /**
  *
  * @param tabA macierz A typu int przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
@@ -97,17 +95,17 @@ double multiplyByScalar(double **tabA,int ilosc_wierszy,int ilosc_kolumn,double 
  * @details Macierz transponowana do macierzy A to macierz B, która powstaje przez zamianę wierszy macierzy A na kolumny i kolumn na wiersze.
  * @return tabB, transponowana macierz A typu int
  */
-int transpozeMatrix(int **tabA,int **tabB,int ilosc_wierszy,int ilosc_kolumn);
+int **transpozeMatrix(int **tabA,int ilosc_wierszy,int ilosc_kolumn);
 /**
  *
  * @param tabA tabA macierz A typu double przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
- * @param tabB  tabB macierz B typu double przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
+ * @param W  W macierz B typu double przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
  * @param ilosc_wierszy zmienna przechowujaca ilosc wierszy w macierzy
  * @param ilosc_kolumn zmienna przechowujaca ilosc kolumn w macierzy
  * @details Macierz transponowana do macierzy A to macierz B, która powstaje przez zamianę wierszy macierzy A na kolumny i kolumn na wiersze.
  * @return tabB, transponowana macierz A typu double
  */
-double transpozeMatrix(double **tabA,double **tabB,int ilosc_wierszy,int ilosc_kolumn);
+double **transpozeMatrix(double **tabA,int ilosc_wierszy,int ilosc_kolumn);
 /**
  *
  * @param tabA macierz A typu int przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
@@ -118,7 +116,7 @@ double transpozeMatrix(double **tabA,double **tabB,int ilosc_wierszy,int ilosc_k
  * @details funkcja potegujaca macierz A przez wybrany stopien potegi
  * @return macierz wynikowa, podniesiona do potegi n
  */
-int powerMatrix(int **tabA, int **W,unsigned n,int ilosc_wierszy,int ilosc_kolumn);
+int **powerMatrix(int **tabA,unsigned n,int ilosc_wierszy,int ilosc_kolumn);
 /**
  *
  * @param tabA macierz A typu double przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
@@ -129,7 +127,7 @@ int powerMatrix(int **tabA, int **W,unsigned n,int ilosc_wierszy,int ilosc_kolum
  * @details funkcja potegujaca macierz A przez wybrany stopien potegi
  * @return macierz wynikowa, podniesiona do potegi n
  */
-double powerMatrix(double **tabA, double **W,unsigned n,int ilosc_wierszy,int ilosc_kolumn);
+double **powerMatrix(double **tabA,unsigned n,int ilosc_wierszy,int ilosc_kolumn);
 /**
  *
  * @param ilosc_kolumn zmienna przechowujaca ilosc kolumn w macierzy
@@ -177,7 +175,7 @@ bool matrixIsDiagonal(double **tabA,int ilosc_wierszy,int ilosc_kolumn);
  * @details zamienia podany parametr a z drugim podanym parametrem b, w wyniku czego a jest rowne poczatkowej wartosci b, z koleji b jest rowne poczatkowej wartosci a
  * @return zwraca zamienione dwa parametry
  */
-int swap(int**a,int**b);
+int swap(int &a,int &b);
 /**
  *
  * @param a zmienna typu double
@@ -185,7 +183,7 @@ int swap(int**a,int**b);
  * @details zamienia podany parametr a z drugim podanym parametrem b, w wyniku czego a jest rowne poczatkowej wartosci b, z koleji b jest rowne poczatkowej wartosci a
  * @return zwraca zamienione dwa parametry
  */
-double swap(double**a,double**b);
+double swap(double &a,double &b);
 /**
  *
  * @param ilosc_kolumn zmienna przechowujaca ilosc kolumn w macierzy
@@ -193,7 +191,7 @@ double swap(double**a,double**b);
  * @details  funkcja sortujaca tablice jednowymiarowa sortowaniem babelkowym, sortowanie rosnace
  * @return zwraca tablice t posortowana
  */
-int sortRow(int ilosc_kolumn, int *t);
+int *sortRow(int*t , int ilosc_kolumn);
 /**
  *
  * @param ilosc_kolumn zmienna przechowujaca ilosc kolumn w macierzy
@@ -201,25 +199,16 @@ int sortRow(int ilosc_kolumn, int *t);
  * @details funkcja sortujaca tablice jednowymiarowa sortowaniem babelkowym, sortowanie rosnace
  * @return zwraca tablice t posortowana
  */
-double sortRow(int ilosc_kolumn, double *t);
+double *sortRow(double *t, int ilosc_kolumn);
+
+int **sortRowsInMatrix (int **tabA,int ilosc_wierszy,int ilosc_kolumn);
+
+double **sortRowsInMatrix (double **tabA,int ilosc_wierszy,int ilosc_kolumn);
 /**
  *
- * @param tabA macierz A typu int przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
- * @param ilosc_wierszy zmienna przechowujaca ilosc wierszy w macierzy
- * @param ilosc_kolumn zmienna przechowujaca ilosc kolumn w macierzy
- * @details funkcja sortujaca wszystkie wiersze w macierzy sortowaniem babelkowym, sortowanie rosnace
- * @return zwraca posortowana macierz A tabA typu int
+ * @return W
  */
-int sortRowsInMatrix (int **tabA,int ilosc_wierszy,int ilosc_kolumn);
-/**
- *
- * @param tabA macierz A typu double przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
- * @param ilosc_wierszy zmienna przechowujaca ilosc wierszy w macierzy
- * @param ilosc_kolumn zmienna przechowujaca ilosc kolumn w macierzy
- * @details funkcja sortujaca wszystkie wiersze w macierzy sortowaniem babelkowym, sortowanie rosnace
- * @return zwraca posortowana macierz A tabA typu double
- */
-double sortRowsInMatrix (double **tabA,int ilosc_wierszy,int ilosc_kolumn);
+int **matrixGenerate(std::pair <int,int>,int wybor_dolny,int wybor_gorny);
 int wpisz_tabA (int** tabA,int ilosc_wierszy , int ilosc_kolumn);
 double wpisz_tabA (double** tabA,int ilosc_wierszy , int ilosc_kolumn);
 int wpisz_tabB (int** tabB,int ilosc_wierszy , int ilosc_kolumn);
@@ -233,3 +222,4 @@ void zwalnianie_pamieci_macierz(double** tabA, int ilosc_wierszy);
 int wczytaj_liczbe (void);
 int wczytaj_liczbe_double (void);
 void help();
+int rozmiar_macierzy();

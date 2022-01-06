@@ -1,25 +1,28 @@
 #include <iostream>
 #include "../include/lib.h"
 #include <string>
+#include <ctime>
+#include <cstdlib>
 
 using namespace std;
 
-int addMatrix(int **tabA,int **tabB,int **W,int ilosc_wierszy,int ilosc_kolumn)
+int **addMatrix(int **tabA,int **tabB,int ilosc_wierszy,int ilosc_kolumn)
 {
     int iw,ik;
-
+    int **W = dynamiczna_alokacja( ilosc_wierszy, ilosc_kolumn);
 
     for( iw = 0; iw < ilosc_wierszy; iw++ )
         for( ik = 0; ik < ilosc_kolumn; ik++ )
             W [ iw ][ ik ] = tabA [ iw ][ ik ] + tabB [ iw ][ ik ];
 
 
-    return  **W;
+    return  W;
 
 }
-double addMatrix(double **tabA,double **tabB,double **W,int ilosc_wierszy,int ilosc_kolumn)
+double **addMatrix(double **tabA,double **tabB,int ilosc_wierszy,int ilosc_kolumn)
 {
     int iw,ik;
+    double **W = dynamiczna_alokacja_double( ilosc_wierszy, ilosc_kolumn);
 
 
     for( iw = 0; iw < ilosc_wierszy; iw++ )
@@ -27,7 +30,7 @@ double addMatrix(double **tabA,double **tabB,double **W,int ilosc_wierszy,int il
             W [ iw ][ ik ] = tabA [ iw ][ ik ] + tabB [ iw ][ ik ];
 
 
-    return  **W;
+    return  W;
 
 }
 int** dynamiczna_alokacja(int ilosc_wierszy,int ilosc_kolumn)
@@ -60,7 +63,7 @@ void odczyt (int **tabA,int ilosc_wierszy,int ilosc_kolumn)
     for( iw = 0; iw < ilosc_wierszy; iw++ )
     {
         for( ik = 0; ik < ilosc_kolumn; ik++ )
-            cout << tabA [ iw ][ ik ] << "   ";
+            cout  << tabA [ iw ][ ik ] << "\t";
         cout << endl;
     }
 }
@@ -70,7 +73,7 @@ void odczyt_double (double **tabA,int ilosc_wierszy,int ilosc_kolumn)
     for( iw = 0; iw < ilosc_wierszy; iw++ )
     {
         for( ik = 0; ik < ilosc_kolumn; ik++ )
-            cout << tabA [ iw ][ ik ] << '\t' << "    ";
+            cout << tabA [ iw ][ ik ] << "\t";
         cout << endl;
     }
 }
@@ -143,46 +146,50 @@ double wpisz_tabB (double** tabB,int ilosc_wierszy , int ilosc_kolumn)
     return **tabB;
 }
 
-int swap(int **a,int **b){
-    int **temp;
-    a=temp;
+int swap(int &a,int &b){
+    int temp;
+    temp=a;
     a=b;
     b=temp;
-    return int (**a), int (**b);
+    return  (a),(b);
 }
-double swap(double **a,double **b){
-    double **temp;
-    a=temp;
+double swap(double &a,double &b){
+    double temp;
+    temp=a;
     a=b;
     b=temp;
-    return double (**a), double (**b);
+    return (a),(b);
 }
 
-int subtractMatrix (int **tabA,int **tabB,int **W,int ilosc_wierszy,int ilosc_kolumn)
+int **subtractMatrix (int **tabA,int **tabB,int ilosc_wierszy,int ilosc_kolumn)
 {
     int iw,ik;
+    int **W = dynamiczna_alokacja( ilosc_wierszy, ilosc_kolumn);
 
     for( iw = 0; iw < ilosc_wierszy; iw++ )
         for( ik = 0; ik < ilosc_kolumn; ik++ )
             W [ iw ][ ik ] = tabA [ iw ][ ik ] - tabB [ iw ][ ik ];
 
-    return  **W;
+    return  W;
 }
 
-double subtractMatrix (double **tabA,double **tabB,double **W,int ilosc_wierszy,int ilosc_kolumn)
+double **subtractMatrix (double **tabA,double **tabB,int ilosc_wierszy,int ilosc_kolumn)
 {
     int iw,ik;
+    double **W = dynamiczna_alokacja_double( ilosc_wierszy, ilosc_kolumn);
 
     for( iw = 0; iw < ilosc_wierszy; iw++ )
         for( ik = 0; ik < ilosc_kolumn; ik++ )
             W [ iw ][ ik ] = tabA [ iw ][ ik ] - tabB [ iw ][ ik ];
 
-    return  **W;
+    return  W;
 }
 
-int multiplyMatrix(int **tabA,int **tabB, int **W,int ilosc_wierszy,int ilosc_kolumn,int ilosc_kolumn_macierzB)
+int **multiplyMatrix(int **tabA,int **tabB,int ilosc_wierszy,int ilosc_kolumn,int ilosc_kolumn_macierzB)
 {
     int i, j, k, s;
+    int **W = dynamiczna_alokacja( ilosc_wierszy, ilosc_kolumn);
+
 
 
     for( i = 0; i < ilosc_wierszy; i++ )
@@ -193,14 +200,15 @@ int multiplyMatrix(int **tabA,int **tabB, int **W,int ilosc_wierszy,int ilosc_ko
             W [ i ][ j ] = s;
         }
 
-    return **W;
+    return W;
 
 }
 
-double multiplyMatrix(double **tabA,double **tabB, double **W,int ilosc_wierszy,int ilosc_kolumn,int ilosc_kolumn_macierzB)
+double **multiplyMatrix(double **tabA,double **tabB,int ilosc_wierszy,int ilosc_kolumn,int ilosc_kolumn_macierzB)
 {
-    int i, j, k, s;
-
+    int i, j, k;
+    double s;
+    double **W = dynamiczna_alokacja_double( ilosc_wierszy, ilosc_kolumn);
 
     for( i = 0; i < ilosc_wierszy; i++ )
         for( j = 0; j < ilosc_kolumn_macierzB; j++ )
@@ -210,88 +218,95 @@ double multiplyMatrix(double **tabA,double **tabB, double **W,int ilosc_wierszy,
             W [ i ][ j ] = s;
         }
 
-    return **W;
+    return W;
 
 }
 
-int powerMatrix(int **tabA, int **W,unsigned n,int ilosc_wierszy,int ilosc_kolumn)
+int **powerMatrix(int **tabA,unsigned n,int ilosc_wierszy,int ilosc_kolumn)
 {
+    int **W = dynamiczna_alokacja( ilosc_wierszy, ilosc_kolumn);
 
     if (n==1)
-        return  **W;
+        return  W;
 
-    powerMatrix(tabA,W, n/2,ilosc_wierszy,ilosc_kolumn);
+    powerMatrix(tabA, n/2,ilosc_wierszy,ilosc_kolumn);
 
-    multiplyMatrix(tabA,tabA, W,ilosc_wierszy,ilosc_kolumn,ilosc_kolumn);
+    multiplyMatrix(tabA,tabA, ilosc_wierszy,ilosc_kolumn,ilosc_kolumn);
 
     if (n%2 != 0)
-        multiplyMatrix(tabA,tabA, W,ilosc_wierszy,ilosc_kolumn,ilosc_kolumn);
+        multiplyMatrix(tabA,tabA, ilosc_wierszy,ilosc_kolumn,ilosc_kolumn);
 
-    return **W ;
+    return W ;
 }
 
-double powerMatrix(double **tabA, double **W,unsigned n,int ilosc_wierszy,int ilosc_kolumn)
+double **powerMatrix(double **tabA, unsigned n,int ilosc_wierszy,int ilosc_kolumn)
 {
+    double **W = dynamiczna_alokacja_double( ilosc_wierszy, ilosc_kolumn);
     if (n==1)
-        return  **W;
+        return  W;
 
-    powerMatrix(tabA,W, n/2,ilosc_wierszy,ilosc_kolumn);
+    powerMatrix(tabA, n/2,ilosc_wierszy,ilosc_kolumn);
 
-    multiplyMatrix(tabA,tabA, W,ilosc_wierszy,ilosc_kolumn,ilosc_kolumn);
+    multiplyMatrix(tabA,tabA, ilosc_wierszy,ilosc_kolumn,ilosc_kolumn);
 
     if (n%2 != 0)
-        multiplyMatrix(tabA,tabA, W,ilosc_wierszy,ilosc_kolumn,ilosc_kolumn);
+        multiplyMatrix(tabA,tabA, ilosc_wierszy,ilosc_kolumn,ilosc_kolumn);
 
-    return **W ;
+    return W ;
 }
 
-int multiplyByScalar(int **tabA,int ilosc_wierszy,int ilosc_kolumn,int c)
+int **multiplyByScalar(int **tabA,int ilosc_wierszy,int ilosc_kolumn,int c)
 {
     int  iw, ik;
+    int **W = dynamiczna_alokacja( ilosc_wierszy, ilosc_kolumn);
 
     for( iw = 0; iw < ilosc_wierszy; iw++ )
-        for( ik = 0; ik < ilosc_kolumn; ik++ ) tabA [ iw ][ ik ] *= c;
+        for( ik = 0; ik < ilosc_kolumn; ik++ ) W [ iw ][ ik ] *= c;
 
-    return **tabA;
+    return W;
 }
-double multiplyByScalar(double **tabA,int ilosc_wierszy,int ilosc_kolumn,double c)
+double **multiplyByScalar(double **tabA,int ilosc_wierszy,int ilosc_kolumn,double c)
 {
     int  iw, ik;
+    double **W = dynamiczna_alokacja_double( ilosc_wierszy, ilosc_kolumn);
 
     for( iw = 0; iw < ilosc_wierszy; iw++ )
-        for( ik = 0; ik < ilosc_kolumn; ik++ ) tabA [ iw ][ ik ] *= c;
+        for( ik = 0; ik < ilosc_kolumn; ik++ ) W [ iw ][ ik ] *= c;
 
-    return **tabA;
+    return W;
 }
-int transpozeMatrix(int **tabA,int **tabB,int ilosc_wierszy,int ilosc_kolumn)
+int **transpozeMatrix(int **tabA,int ilosc_wierszy,int ilosc_kolumn)
 {
     int iw, ik;
+    int **W = dynamiczna_alokacja( ilosc_wierszy, ilosc_kolumn);
 
     // transponujemy macierz A w B
 
     for( iw = 0; iw < ilosc_wierszy; iw++ )
-        for( ik = 0; ik < ilosc_kolumn; ik++ ) tabB [ ik ][ iw ] = tabA [ iw ][ ik ];
+        for( ik = 0; ik < ilosc_kolumn; ik++ ) W [ ik ][ iw ] = tabA [ iw ][ ik ];
 
 
-    return **tabB;
+    return W;
 }
 
-double transpozeMatrix(double **tabA,double **tabB,int ilosc_wierszy,int ilosc_kolumn)
+double **transpozeMatrix(double **tabA,int ilosc_wierszy,int ilosc_kolumn)
 {
     int iw, ik;
+    double **W = dynamiczna_alokacja_double( ilosc_wierszy, ilosc_kolumn);
 
     // transponujemy macierz A w B
 
     for( iw = 0; iw < ilosc_wierszy; iw++ )
-        for( ik = 0; ik < ilosc_kolumn; ik++ ) tabB [ ik ][ iw ] = tabA [ iw ][ ik ];
+        for( ik = 0; ik < ilosc_kolumn; ik++ ) W [ ik ][ iw ] = tabA [ iw ][ ik ];
 
 
-    return **tabB;
+    return W;
 }
 
 int determinantMatrix ( int ilosc_kolumn, int w, int * WK, int ** tabA ) {
     int i, j, k, m, *KK;
     int s;
+
 
     if (ilosc_kolumn == 1)                     // sprawdzamy warunek zakończenia rekurencji
 
@@ -416,52 +431,87 @@ bool matrixIsDiagonal(double **tabA,int ilosc_wierszy,int ilosc_kolumn)
 
     return ok;
 }
-int sortRow(int ilosc_kolumn, int *t)
+int *sortRow(int *t , int ilosc_kolumn)
+{
+
+    for (int pocz=0; pocz < ilosc_kolumn-1; pocz++)
+        for (int i=0; i < ilosc_kolumn-pocz-1; i++)
+            if (t[i] > t[i+1])
+                swap(t[i],t[i+1]);
+
+    return t;
+}
+double *sortRow(double *t ,int ilosc_kolumn)
 {
     for (int pocz=0; pocz < ilosc_kolumn-1; pocz++)
         for (int i=0; i < ilosc_kolumn-pocz-1; i++)
             if (t[i] > t[i+1])
                 swap(t[i],t[i+1]);
 
-    return *t;
+    return t;
 }
-double sortRow(int ilosc_kolumn, double *t)
-{
-    for (int pocz=0; pocz < ilosc_kolumn-1; pocz++)
-        for (int i=0; i < ilosc_kolumn-pocz-1; i++)
-            if (t[i] > t[i+1])
-                swap(t[i],t[i+1]);
-
-    return *t;
-}
-int sortRowsInMatrix (int **tabA,int ilosc_wierszy,int ilosc_kolumn)
+int **sortRowsInMatrix (int **tabA,int ilosc_wierszy,int ilosc_kolumn)
 {
    int tmp;
+   int **W = dynamiczna_alokacja( ilosc_wierszy, ilosc_kolumn);
     for (int i=0; i<ilosc_wierszy; i++)
         for (int j=0; j<ilosc_kolumn-1; j++)
             for (int k=0; k<ilosc_kolumn-1-j; k++)
                 if (tabA[i][k] > tabA[i][k+1])
                 {
                     tmp=tabA[i][k+1];
-                    tabA[i][k+1]=tabA[i][k];
-                    tabA[i][k]=tmp;
+                    W[i][k+1]=tabA[i][k];
+                    W[i][k]=tmp;
                 }
-    return **tabA;
+    return W;
 }
-double sortRowsInMatrix (double **tabA,int ilosc_wierszy,int ilosc_kolumn)
+double **sortRowsInMatrix (double **tabA,int ilosc_wierszy,int ilosc_kolumn)
 {
-    int tmp;
+    double tmp;
+    double **W = dynamiczna_alokacja_double( ilosc_wierszy, ilosc_kolumn);
     for (int i=0; i<ilosc_wierszy; i++)
         for (int j=0; j<ilosc_kolumn-1; j++)
             for (int k=0; k<ilosc_kolumn-1-j; k++)
                 if (tabA[i][k] > tabA[i][k+1])
                 {
                     tmp=tabA[i][k+1];
-                    tabA[i][k+1]=tabA[i][k];
-                    tabA[i][k]=tmp;
+                    W[i][k+1]=tabA[i][k];
+                    W[i][k]=tmp;
                 }
-    return **tabA;
+    return W;
 }
+
+int **matrixGenerate(pair <int ,int > matrixSize, int wybor_dolny, int wybor_gorny)
+{
+
+   int **W = dynamiczna_alokacja(matrixSize.first,matrixSize.second);
+
+    srand(time(NULL));
+
+
+   for(int iw = 0; iw < matrixSize.first; iw++ )
+        for(int ik = 0; ik < matrixSize.second; ik++ )
+            W [ iw ][ ik ] =wybor_dolny + rand()%(wybor_gorny+wybor_dolny+1);
+
+
+    return W;
+
+}
+double **matrixGenerate(pair <int ,int > matrixSize, double wybor_dolny, double wybor_gorny)
+{
+
+    double **W = dynamiczna_alokacja_double(matrixSize.first,matrixSize.second);
+
+    srand(time(NULL));
+
+    for(int iw = 0; iw < matrixSize.first; iw++ )
+        for(int ik = 0; ik < matrixSize.second; ik++ )
+            W [ iw ][ ik ] = wybor_dolny + (double) rand() / RAND_MAX * (wybor_gorny-wybor_dolny);
+
+    return W;
+
+}
+
 int wczytaj_liczbe (void)
 {
     int p;

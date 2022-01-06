@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstdlib>
 #include "lib.h"
+#include <stdlib.h>
+#include <ctime>
 
 using namespace std;
 
@@ -12,330 +14,431 @@ double** tabAD;
 double** tabBD;
 double** WD;
 int x;
+int ilosc_kolumn_macierzB;
+pair<int, int> matrixSize;
+
 
 int main(int argc, char *argv[]) {
 
     string choice;
 
+
+
+
     do {
+        if ( _stricmp( argv[1], "addMatrix" ) == 0  && (argc == 3) && _stricmp( argv[2], "generate" ) == 0) {
+            matrixSize.first = 1 + rand() % (10 - 2);
 
-        if ((!strcmp(argv[1], "addMatrix") || choice == "addMatrix")) {
-            do {
-                cout << "1-Macierze int\n"
-                        "2-Macierze double\n";
-                x=wczytaj_liczbe();
-                if(x==1)
-                {
-                    cout << "podaj liczbe wierszy" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout << "podaj liczbe kolumn" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
+            matrixSize.second = 1 + rand() % (10 - 2);
 
-                    tabA = dynamiczna_alokacja( ilosc_wierszy, ilosc_kolumn);
-                    tabB = dynamiczna_alokacja( ilosc_wierszy, ilosc_kolumn);
-                    W = dynamiczna_alokacja( ilosc_wierszy, ilosc_kolumn);
+            double wybor_dolny = -100 + (double) rand() / RAND_MAX * (200);
 
-                    wpisz_tabA(tabA,ilosc_wierszy,ilosc_kolumn);
-                    wpisz_tabB(tabB,ilosc_wierszy,ilosc_kolumn);
+            double wybor_gorny = -100 + (double) rand() / RAND_MAX * (200);
 
-                    addMatrix(tabA,tabB,W,ilosc_wierszy,ilosc_kolumn);
 
-                    odczyt(W,ilosc_wierszy,ilosc_kolumn);
-
-                    zwalnianie_pamieci_macierz(tabA, ilosc_wierszy);
-                    zwalnianie_pamieci_macierz(tabB, ilosc_wierszy);
-                    zwalnianie_pamieci_macierz(W, ilosc_wierszy);
-                }
-                else if(x==2)
-                {
-                    cout << "podaj liczbe wierszy" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout << "podaj liczbe kolumn" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
-
-                    tabAD = dynamiczna_alokacja_double( ilosc_wierszy, ilosc_kolumn);
-                    tabBD = dynamiczna_alokacja_double( ilosc_wierszy, ilosc_kolumn);
-                    WD = dynamiczna_alokacja_double( ilosc_wierszy, ilosc_kolumn);
-
-                    wpisz_tabA(tabAD,ilosc_wierszy,ilosc_kolumn);
-                    wpisz_tabB(tabBD,ilosc_wierszy,ilosc_kolumn);
-
-                    addMatrix(tabAD,tabBD,WD,ilosc_wierszy,ilosc_kolumn);
-
-                    odczyt_double(WD,ilosc_wierszy,ilosc_kolumn);
-
-                    zwalnianie_pamieci_macierz(tabAD, ilosc_wierszy);
-                    zwalnianie_pamieci_macierz(tabBD, ilosc_wierszy);
-                    zwalnianie_pamieci_macierz(WD, ilosc_wierszy);
-                }
-
-            }while (x!=1 && x!=2);
+            odczyt(addMatrix(matrixGenerate(matrixSize, wybor_dolny, wybor_gorny),
+                             matrixGenerate(matrixSize, wybor_dolny, wybor_gorny), matrixSize.first,  matrixSize.second),
+                   matrixSize.first,  matrixSize.second);
         }
 
-        else if( (!strcmp(argv[1], "subtractMatrix") || choice == "substractMatrix"))
+       else if (  _stricmp( argv[1], "addMatrix" ) == 0  || choice == "addMatrix") {
+           /* if ((argc == 3) && _stricmp( argv[2], "generate" ) == 0) {
+                matrixSize.first = 1 + rand() % (10 - 2);
+
+                matrixSize.second = 1 + rand() % (10 - 2);
+
+                double wybor_dolny = -100 + (double) rand() / RAND_MAX * (200);
+
+                double wybor_gorny = -100 + (double) rand() / RAND_MAX * (200);
+
+
+                odczyt(addMatrix(matrixGenerate(matrixSize, wybor_dolny, wybor_gorny),
+                                 matrixGenerate(matrixSize, wybor_dolny, wybor_gorny), matrixSize.first,  matrixSize.second),
+                       matrixSize.first,  matrixSize.second);
+            } else {*/
+                do {
+                    cout << "DODAWANIE MACIERZY\n"
+                            "---------------------\n";
+                    cout << "1-Macierze int\n"
+                            "2-Macierze double\n";
+                    x = wczytaj_liczbe();
+                    if (x == 1) {
+                        cout << "podaj liczbe wierszy" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "podaj liczbe kolumn" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
+
+                        tabA = dynamiczna_alokacja(ilosc_wierszy, ilosc_kolumn);
+                        tabB = dynamiczna_alokacja(ilosc_wierszy, ilosc_kolumn);
+
+                        wpisz_tabA(tabA, ilosc_wierszy, ilosc_kolumn);
+                        wpisz_tabB(tabB, ilosc_wierszy, ilosc_kolumn);
+
+
+                        odczyt(addMatrix(tabA, tabB, ilosc_wierszy, ilosc_kolumn), ilosc_wierszy, ilosc_kolumn);
+
+                        zwalnianie_pamieci_macierz(tabA, ilosc_wierszy);
+                        zwalnianie_pamieci_macierz(tabB, ilosc_wierszy);
+
+                    } else if (x == 2) {
+                        cout << "podaj liczbe wierszy" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "podaj liczbe kolumn" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
+
+                        tabAD = dynamiczna_alokacja_double(ilosc_wierszy, ilosc_kolumn);
+                        tabBD = dynamiczna_alokacja_double(ilosc_wierszy, ilosc_kolumn);
+
+
+                        wpisz_tabA(tabAD, ilosc_wierszy, ilosc_kolumn);
+                        wpisz_tabB(tabBD, ilosc_wierszy, ilosc_kolumn);
+
+
+                        odczyt_double(addMatrix(tabAD, tabBD, ilosc_wierszy, ilosc_kolumn), ilosc_wierszy,
+                                      ilosc_kolumn);
+
+                        zwalnianie_pamieci_macierz(tabAD, ilosc_wierszy);
+                        zwalnianie_pamieci_macierz(tabBD, ilosc_wierszy);
+
+                    }
+
+                } while (x != 1 && x != 2);
+          //   }
+        }
+
+        else if( (!strcmp(argv[1], "subtractMatrix") || choice == "subtractMatrix"))
         {
-            do {
-                cout << "1-Macierze int\n"
-                        "2-Macierze double\n";
-                x=wczytaj_liczbe();
-                if(x==1)
-                {
-                    cout << "podaj liczbe wierszy" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout << "podaj liczbe kolumn" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
+            if ((argc == 3) && _stricmp( argv[2], "generate" ) == 0) {
+                matrixSize.first = 1 + rand() % (10 - 2);
 
-                    tabA = dynamiczna_alokacja( ilosc_wierszy, ilosc_kolumn);
-                    tabB = dynamiczna_alokacja( ilosc_wierszy, ilosc_kolumn);
-                    W = dynamiczna_alokacja( ilosc_wierszy, ilosc_kolumn);
+                matrixSize.second = 1 + rand() % (10 - 2);
 
-                    wpisz_tabA(tabA,ilosc_wierszy,ilosc_kolumn);
-                    wpisz_tabB(tabB,ilosc_wierszy,ilosc_kolumn);
+                int wybor_dolny = -1 + rand() % (10 - 2);
 
-                    subtractMatrix(tabA,tabB,W,ilosc_wierszy,ilosc_kolumn);
+                int wybor_gorny = -1 + rand() % (10 - 2);
 
-                    odczyt(W,ilosc_wierszy,ilosc_kolumn);
 
-                    zwalnianie_pamieci_macierz(tabA, ilosc_wierszy);
-                    zwalnianie_pamieci_macierz(tabB, ilosc_wierszy);
-                    zwalnianie_pamieci_macierz(W, ilosc_wierszy);
-                }
-                else if(x==2)
-                {
-                    cout << "podaj liczbe wierszy" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout << "podaj liczbe kolumn" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
+                odczyt(subtractMatrix(matrixGenerate(matrixSize, wybor_dolny, wybor_gorny),
+                                 matrixGenerate(matrixSize, wybor_dolny, wybor_gorny), matrixSize.first,  matrixSize.second),
+                       matrixSize.first,  matrixSize.second);
+            } else {
+                do {
+                    cout << "ODEJMOWANIE MACIERZY\n"
+                            "---------------------\n";
+                    cout << "1-Macierze int\n"
+                            "2-Macierze double\n";
+                    x = wczytaj_liczbe();
+                    if (x == 1) {
+                        cout << "podaj liczbe wierszy" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "podaj liczbe kolumn" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
 
-                    tabAD = dynamiczna_alokacja_double( ilosc_wierszy, ilosc_kolumn);
-                    tabBD = dynamiczna_alokacja_double( ilosc_wierszy, ilosc_kolumn);
-                    WD = dynamiczna_alokacja_double( ilosc_wierszy, ilosc_kolumn);
+                        tabA = dynamiczna_alokacja(ilosc_wierszy, ilosc_kolumn);
+                        tabB = dynamiczna_alokacja(ilosc_wierszy, ilosc_kolumn);
 
-                    wpisz_tabA(tabAD,ilosc_wierszy,ilosc_kolumn);
-                    wpisz_tabB(tabBD,ilosc_wierszy,ilosc_kolumn);
+                        wpisz_tabA(tabA, ilosc_wierszy, ilosc_kolumn);
+                        wpisz_tabB(tabB, ilosc_wierszy, ilosc_kolumn);
 
-                    subtractMatrix(tabAD,tabBD,WD,ilosc_wierszy,ilosc_kolumn);
 
-                    odczyt_double(WD,ilosc_wierszy,ilosc_kolumn);
+                        odczyt(subtractMatrix(tabA, tabB, ilosc_wierszy, ilosc_kolumn), ilosc_wierszy, ilosc_kolumn);
 
-                    zwalnianie_pamieci_macierz(tabAD, ilosc_wierszy);
-                    zwalnianie_pamieci_macierz(tabBD, ilosc_wierszy);
-                    zwalnianie_pamieci_macierz(WD, ilosc_wierszy);
+                        zwalnianie_pamieci_macierz(tabA, ilosc_wierszy);
+                        zwalnianie_pamieci_macierz(tabB, ilosc_wierszy);
+                    } else if (x == 2) {
+                        cout << "podaj liczbe wierszy" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "podaj liczbe kolumn" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
 
-                }
+                        tabAD = dynamiczna_alokacja_double(ilosc_wierszy, ilosc_kolumn);
+                        tabBD = dynamiczna_alokacja_double(ilosc_wierszy, ilosc_kolumn);
 
-            }while (x!=1 && x!=2);
+
+                        wpisz_tabA(tabAD, ilosc_wierszy, ilosc_kolumn);
+                        wpisz_tabB(tabBD, ilosc_wierszy, ilosc_kolumn);
+
+
+                        odczyt_double(subtractMatrix(tabAD, tabBD, ilosc_wierszy, ilosc_kolumn), ilosc_wierszy,
+                                      ilosc_kolumn);
+
+                        zwalnianie_pamieci_macierz(tabAD, ilosc_wierszy);
+                        zwalnianie_pamieci_macierz(tabBD, ilosc_wierszy);
+
+
+                    }
+
+                } while (x != 1 && x != 2);
+            }
         }
         else if ((!strcmp(argv[1], "multiplyMatrix") || choice == "multiplyMatrix"))
         {
 
-            int ilosc_kolumn_macierzB;
-            do {
-                cout << "1-Macierze int\n"
-                        "2-Macierze double\n";
-                x=wczytaj_liczbe();
-                if(x==1)
-                {
-                    cout << "Podaj ilosc wierszy do macierzy A" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout << "Podaj ilosc kolumn do macierzy A" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
-                    cout << "Podaj ilosc kolumn do macierzy B" << endl;
-                    ilosc_kolumn_macierzB=wczytaj_liczbe();
+            if ((argc == 3) && _stricmp( argv[2], "generate" ) == 0) {
+                matrixSize.first = 1 + rand() % (10 - 2);
 
-                    tabA = dynamiczna_alokacja(ilosc_wierszy,ilosc_kolumn);
-                    tabB = dynamiczna_alokacja(ilosc_kolumn,ilosc_kolumn_macierzB);
-                    W = dynamiczna_alokacja(ilosc_wierszy,ilosc_kolumn_macierzB);
+                matrixSize.second = 1 + rand() % (10 - 2);
+                ilosc_kolumn_macierzB = 1 + rand() % (10 - 2);
+                int wybor_dolny = -1 + rand() % (10 - 2);
 
-                    wpisz_tabA(tabA,ilosc_wierszy,ilosc_kolumn);
-                    wpisz_tabB(tabB,ilosc_kolumn,ilosc_kolumn_macierzB);
-                    multiplyMatrix(tabA,tabB,W,ilosc_wierszy,ilosc_kolumn,ilosc_kolumn_macierzB);
+                int wybor_gorny = -1 + rand() % (10 - 2);
 
-                    odczyt(W,ilosc_wierszy,ilosc_kolumn_macierzB);
 
-                    zwalnianie_pamieci_macierz(tabA, ilosc_wierszy);
-                    zwalnianie_pamieci_macierz(tabB, ilosc_kolumn);
-                    zwalnianie_pamieci_macierz(W, ilosc_wierszy);
-                }
-                else if(x==2)
-                {
-                    cout << "Podaj ilosc wierszy do macierzy A" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout << "Podaj ilosc kolumn do macierzy A" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
-                    cout << "Podaj ilosc kolumn do macierzy B" << endl;
-                    ilosc_kolumn_macierzB=wczytaj_liczbe();
 
-                    tabAD = dynamiczna_alokacja_double(ilosc_wierszy,ilosc_kolumn);
-                    tabBD = dynamiczna_alokacja_double(ilosc_kolumn,ilosc_kolumn_macierzB);
-                    WD = dynamiczna_alokacja_double(ilosc_wierszy,ilosc_kolumn_macierzB);
 
-                    wpisz_tabA(tabAD,ilosc_wierszy,ilosc_kolumn);
-                    wpisz_tabB(tabBD,ilosc_kolumn,ilosc_kolumn_macierzB);
-                    multiplyMatrix(tabAD,tabBD,WD,ilosc_wierszy,ilosc_kolumn,ilosc_kolumn_macierzB);
+                odczyt(multiplyMatrix(matrixGenerate(matrixSize, wybor_dolny, wybor_gorny),matrixGenerate(matrixSize, wybor_dolny, wybor_gorny), matrixSize.first,  matrixSize.second, ilosc_kolumn_macierzB),matrixSize.first,  ilosc_kolumn_macierzB);
 
-                    odczyt_double(WD,ilosc_wierszy,ilosc_kolumn_macierzB);
+            } else {
 
-                    zwalnianie_pamieci_macierz(tabAD, ilosc_wierszy);
-                    zwalnianie_pamieci_macierz(tabBD, ilosc_kolumn);
-                    zwalnianie_pamieci_macierz(WD, ilosc_wierszy);
+                do {
+                    cout << "MNOZENIE MACIERZY\n"
+                            "---------------------\n";
+                    cout << "1-Macierze int\n"
+                            "2-Macierze double\n";
+                    x = wczytaj_liczbe();
+                    if (x == 1) {
+                        cout << "Podaj ilosc wierszy do macierzy A" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "Podaj ilosc kolumn do macierzy A" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
+                        cout << "Podaj ilosc kolumn do macierzy B" << endl;
+                        ilosc_kolumn_macierzB = wczytaj_liczbe();
 
-                }
+                        tabA = dynamiczna_alokacja(ilosc_wierszy, ilosc_kolumn);
+                        tabB = dynamiczna_alokacja(ilosc_kolumn, ilosc_kolumn_macierzB);
 
-            }while (x!=1 && x!=2);
+
+                        wpisz_tabA(tabA, ilosc_wierszy, ilosc_kolumn);
+                        wpisz_tabB(tabB, ilosc_kolumn, ilosc_kolumn_macierzB);
+
+
+                        odczyt(multiplyMatrix(tabA, tabB, ilosc_wierszy, ilosc_kolumn, ilosc_kolumn_macierzB),
+                               ilosc_wierszy, ilosc_kolumn_macierzB);
+
+                        zwalnianie_pamieci_macierz(tabA, ilosc_wierszy);
+                        zwalnianie_pamieci_macierz(tabB, ilosc_kolumn);
+
+                    } else if (x == 2) {
+                        cout << "Podaj ilosc wierszy do macierzy A" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "Podaj ilosc kolumn do macierzy A" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
+                        cout << "Podaj ilosc kolumn do macierzy B" << endl;
+                        ilosc_kolumn_macierzB = wczytaj_liczbe();
+
+                        tabAD = dynamiczna_alokacja_double(ilosc_wierszy, ilosc_kolumn);
+                        tabBD = dynamiczna_alokacja_double(ilosc_kolumn, ilosc_kolumn_macierzB);
+
+
+                        wpisz_tabA(tabAD, ilosc_wierszy, ilosc_kolumn);
+                        wpisz_tabB(tabBD, ilosc_kolumn, ilosc_kolumn_macierzB);
+
+
+                        odczyt_double(multiplyMatrix(tabAD, tabBD, ilosc_wierszy, ilosc_kolumn, ilosc_kolumn_macierzB),
+                                      ilosc_wierszy, ilosc_kolumn_macierzB);
+
+                        zwalnianie_pamieci_macierz(tabAD, ilosc_wierszy);
+                        zwalnianie_pamieci_macierz(tabBD, ilosc_kolumn);
+
+
+                    }
+
+                } while (x != 1 && x != 2);
+           }
         }
         else if ((!strcmp(argv[1], "multiplyByScalar") || choice == "multiplyByScalar"))
         {
-            int c;
-            do {
-                cout << "1-Macierze int\n"
-                        "2-Macierze double\n";
-                x=wczytaj_liczbe();
-                if(x==1)
-                {
-                    cout << "podaj ilosc wierszy w macierzy" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout << "podaj ilosc kolum w macierzy" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
+            if ((argc == 3) && _stricmp( argv[2], "generate" ) == 0) {
+                matrixSize.first = 1 + rand() % (10 - 2);
 
-                    tabA = dynamiczna_alokacja(ilosc_wierszy,ilosc_kolumn);
+                matrixSize.second = 1 + rand() % (10 - 2);
 
-                    wpisz_tabA(tabA,ilosc_wierszy,ilosc_kolumn);
+                double wybor_dolny = -100 + (double) rand() / RAND_MAX * (200);
 
-                    cout << "podaj wartosc do skalaru" << endl;
-                    c=wczytaj_liczbe();
+                double wybor_gorny = -100 + (double) rand() / RAND_MAX * (200);
+                int x = 1 + rand() % (6 - 2);
 
-                    multiplyByScalar(tabA,ilosc_wierszy,ilosc_kolumn,c);
+                odczyt(multiplyByScalar(matrixGenerate(matrixSize,wybor_dolny,wybor_gorny),
+                                         matrixSize.first,
+                                         matrixSize.second,
+                                         x),
+                       matrixSize.first,
+                       matrixSize.second);
+                multiplyByScalar(matrixGenerate(matrixSize,wybor_dolny,wybor_gorny), ilosc_wierszy, ilosc_kolumn, x);
+            } else {
 
-                    odczyt(tabA,ilosc_wierszy,ilosc_kolumn);
+                int c;
+                do {
+                    cout << "MNOZENIE MACIERZY PRZEZ SKALAR\n"
+                            "---------------------\n";
+                    cout << "1-Macierze int\n"
+                            "2-Macierze double\n";
+                    x = wczytaj_liczbe();
+                    if (x == 1) {
+                        cout << "podaj ilosc wierszy w macierzy" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "podaj ilosc kolum w macierzy" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
 
-                    zwalnianie_pamieci_macierz(tabA, ilosc_wierszy);
+                        tabA = dynamiczna_alokacja(ilosc_wierszy, ilosc_kolumn);
 
-                }
-                else if(x==2)
-                {
-                    cout << "podaj ilosc wierszy w macierzy" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout << "podaj ilosc kolum w macierzy" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
+                        wpisz_tabA(tabA, ilosc_wierszy, ilosc_kolumn);
 
-                    tabAD = dynamiczna_alokacja_double(ilosc_wierszy,ilosc_kolumn);
+                        cout << "podaj wartosc do skalaru" << endl;
+                        c = wczytaj_liczbe();
 
-                    wpisz_tabA(tabAD,ilosc_wierszy,ilosc_kolumn);
+                        multiplyByScalar(tabA, ilosc_wierszy, ilosc_kolumn, c);
 
-                    cout << "podaj wartosc do skalaru" << endl;
-                    c=wczytaj_liczbe_double();
+                        odczyt(tabA, ilosc_wierszy, ilosc_kolumn);
 
-                    multiplyByScalar(tabAD,ilosc_wierszy,ilosc_kolumn,c);
+                        zwalnianie_pamieci_macierz(tabA, ilosc_wierszy);
 
-                    odczyt_double(tabAD,ilosc_wierszy,ilosc_kolumn);
+                    } else if (x == 2) {
+                        cout << "podaj ilosc wierszy w macierzy" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "podaj ilosc kolum w macierzy" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
 
-                    zwalnianie_pamieci_macierz(tabAD, ilosc_wierszy);
+                        tabAD = dynamiczna_alokacja_double(ilosc_wierszy, ilosc_kolumn);
 
-                }
+                        wpisz_tabA(tabAD, ilosc_wierszy, ilosc_kolumn);
 
-            }while (x!=1 && x!=2);
+                        cout << "podaj wartosc do skalaru" << endl;
+                        c = wczytaj_liczbe_double();
+
+                        odczyt_double(multiplyByScalar(tabAD, ilosc_wierszy, ilosc_kolumn, c),ilosc_wierszy,ilosc_kolumn) ;
+
+                       // odczyt_double(tabAD, ilosc_wierszy, ilosc_kolumn);
+
+                        zwalnianie_pamieci_macierz(tabAD, ilosc_wierszy);
+
+                    }
+
+                } while (x != 1 && x != 2);
+            }
         }
         else if ((!strcmp(argv[1], "transpozeMatrix") || choice == "transpozeMatrix"))
         {
-            do {
-                cout << "1-Macierze int\n"
-                        "2-Macierze double\n";
-                x=wczytaj_liczbe();
-                if(x==1)
-                {
-                    cout << "podaj ilosc wierszy macierzy A" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout << "podaj ilosc kolumn macierzy A" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
+            if ((argc == 3) && _stricmp( argv[2], "generate" ) == 0) {
+                matrixSize.first = 1 + rand() % (10 - 2);
 
-                    tabA = dynamiczna_alokacja(ilosc_wierszy,ilosc_kolumn);
-                    tabB = dynamiczna_alokacja(ilosc_kolumn,ilosc_wierszy);
+                matrixSize.second = 1 + rand() % (10 - 2);
 
-                    wpisz_tabA(tabA,ilosc_wierszy,ilosc_kolumn);
+                int wybor_dolny =  1 + rand() % (10 - 2);
 
-                    transpozeMatrix(tabA,tabB,ilosc_wierszy,ilosc_kolumn);
+                int wybor_gorny =  1 + rand() % (10 - 2);
 
-                    odczyt(tabB,ilosc_kolumn,ilosc_wierszy);
+                odczyt(transpozeMatrix(matrixGenerate(matrixSize,wybor_dolny,wybor_gorny), matrixSize.first, matrixSize.second), matrixSize.first, matrixSize.second);
 
-                    zwalnianie_pamieci_macierz(tabA, ilosc_wierszy);
-                    zwalnianie_pamieci_macierz(tabB, ilosc_kolumn);
+            } else {
+                do {
+                    cout << "TRANSPONOWANIE MACIERZY\n"
+                            "---------------------\n";
+                    cout << "1-Macierze int\n"
+                            "2-Macierze double\n";
+                    x = wczytaj_liczbe();
+                    if (x == 1) {
+                        cout << "podaj ilosc wierszy macierzy A" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "podaj ilosc kolumn macierzy A" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
 
-                }
-                else if(x==2)
-                {
-                    cout << "podaj ilosc wierszy macierzy A" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout << "podaj ilosc kolumn macierzy A" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
+                        tabA = dynamiczna_alokacja(ilosc_wierszy, ilosc_kolumn);
 
-                    tabAD = dynamiczna_alokacja_double(ilosc_wierszy,ilosc_kolumn);
-                    tabBD = dynamiczna_alokacja_double(ilosc_kolumn,ilosc_wierszy);
 
-                    wpisz_tabA(tabAD,ilosc_wierszy,ilosc_kolumn);
+                        wpisz_tabA(tabA, ilosc_wierszy, ilosc_kolumn);
 
-                    transpozeMatrix(tabAD,tabBD,ilosc_wierszy,ilosc_kolumn);
 
-                    odczyt_double(tabBD,ilosc_kolumn,ilosc_wierszy);
+                        odczyt(transpozeMatrix(tabA, ilosc_wierszy, ilosc_kolumn), ilosc_kolumn, ilosc_wierszy);
 
-                    zwalnianie_pamieci_macierz(tabAD, ilosc_wierszy);
-                    zwalnianie_pamieci_macierz(tabBD, ilosc_kolumn);
+                        zwalnianie_pamieci_macierz(tabA, ilosc_wierszy);
 
-                }
 
-            }while (x!=1 && x!=2);
+                    } else if (x == 2) {
+                        cout << "podaj ilosc wierszy macierzy A" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "podaj ilosc kolumn macierzy A" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
+
+                        tabAD = dynamiczna_alokacja_double(ilosc_wierszy, ilosc_kolumn);
+
+
+                        wpisz_tabA(tabAD, ilosc_wierszy, ilosc_kolumn);
+
+
+                        odczyt_double(transpozeMatrix(tabAD, ilosc_wierszy, ilosc_kolumn), ilosc_kolumn, ilosc_wierszy);
+
+                        zwalnianie_pamieci_macierz(tabAD, ilosc_wierszy);
+
+
+                    }
+
+                } while (x != 1 && x != 2);
+            }
         }
         else if ((!strcmp(argv[1], "powerMatrix") || choice == "powerMatrix"))
         {
             unsigned n;
-            do {
-                cout << "1-Macierze int\n"
-                        "2-Macierze double\n";
-                x=wczytaj_liczbe();
-                if(x==1)
-                {
-                    cout << "podaj ilosc wierszy macierzy A" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout << "podaj ilosc kolumn macierzy A" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
-                    cout << "podaj potege" << endl;
-                    cin >> n;
+            if ((argc == 3) && _stricmp( argv[2], "generate" ) == 0) {
+                matrixSize.first = 1 + rand() % (10 - 2);
 
-                    tabA = dynamiczna_alokacja(ilosc_wierszy,ilosc_kolumn);
-                    W = dynamiczna_alokacja(ilosc_wierszy,ilosc_kolumn);
+                matrixSize.second = 1 + rand() % (10 - 2);
 
-                    wpisz_tabA(tabA,ilosc_wierszy,ilosc_kolumn);
+                double wybor_dolny = -100 + (double) rand() / RAND_MAX * (200);
 
-                    powerMatrix(tabA,W,n,ilosc_wierszy,ilosc_kolumn);
+                double wybor_gorny = -100 + (double) rand() / RAND_MAX * (200);
+                int x = 1 + rand() % (10 - 2);
 
-                    odczyt(W,ilosc_wierszy,ilosc_kolumn);
+                odczyt(powerMatrix(matrixGenerate(matrixSize, wybor_dolny, wybor_gorny),
+                                        x, matrixSize.first,  matrixSize.second),
+                       matrixSize.first,  matrixSize.second);
+            } else {
+                do {
+                    cout << "POTEGOWANIE MACIERZY\n"
+                            "---------------------\n";
+                    cout << "1-Macierze int\n"
+                            "2-Macierze double\n";
+                    x = wczytaj_liczbe();
+                    if (x == 1) {
+                        cout << "podaj ilosc wierszy macierzy A" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "podaj ilosc kolumn macierzy A" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
+                        cout << "podaj potege" << endl;
+                        cin >> n;
 
-                    zwalnianie_pamieci_macierz(tabA, ilosc_wierszy);
-                    zwalnianie_pamieci_macierz(W, ilosc_wierszy);
-                }
-                else if(x==2)
-                {
-                    cout << "podaj ilosc wierszy macierzy A" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout << "podaj ilosc kolumn macierzy A" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
-                    cout << "podaj potege" << endl;
-                    cin >> n;
+                        tabA = dynamiczna_alokacja(ilosc_wierszy, ilosc_kolumn);
 
-                    tabAD = dynamiczna_alokacja_double(ilosc_wierszy,ilosc_kolumn);
-                    WD = dynamiczna_alokacja_double(ilosc_wierszy,ilosc_kolumn);
 
-                    wpisz_tabA(tabAD,ilosc_wierszy,ilosc_kolumn);
+                        wpisz_tabA(tabA, ilosc_wierszy, ilosc_kolumn);
 
-                    powerMatrix(tabAD,WD,n,ilosc_wierszy,ilosc_kolumn);
 
-                    odczyt_double(WD,ilosc_wierszy,ilosc_kolumn);
+                        odczyt(powerMatrix(tabA, n, ilosc_wierszy, ilosc_kolumn), ilosc_wierszy, ilosc_kolumn);
 
-                    zwalnianie_pamieci_macierz(tabAD, ilosc_wierszy);
-                    zwalnianie_pamieci_macierz(WD, ilosc_wierszy);
-                }
+                        zwalnianie_pamieci_macierz(tabA, ilosc_wierszy);
 
-            }while (x!=1 && x!=2);
+                    } else if (x == 2) {
+                        cout << "podaj ilosc wierszy macierzy A" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "podaj ilosc kolumn macierzy A" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
+                        cout << "podaj potege" << endl;
+                        cin >> n;
+
+                        tabAD = dynamiczna_alokacja_double(ilosc_wierszy, ilosc_kolumn);
+
+
+                        wpisz_tabA(tabAD, ilosc_wierszy, ilosc_kolumn);
+
+
+                        odczyt_double(powerMatrix(tabAD, n, ilosc_wierszy, ilosc_kolumn), ilosc_wierszy, ilosc_kolumn);
+
+                        zwalnianie_pamieci_macierz(tabAD, ilosc_wierszy);
+
+                    }
+
+                } while (x != 1 && x != 2);
+            }
         }
         else if ((!strcmp(argv[1], "determinantMatrix") || choice == "determinantMatrix"))
         {
@@ -343,192 +446,211 @@ int main(int argc, char *argv[]) {
             int * WK;                    // wektor kolumn
             int ** A;                   // macierz
 
-            do {
-                cout << "1-Macierze int\n"
-                        "2-Macierze double\n";
-                x=wczytaj_liczbe();
-                if(x==1)
-                {
-                    cout<< "podaj liczbe wierszy" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout<< "podaj liczbe kolumn" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
+            if ((argc == 3) && _stricmp( argv[2], "generate" ) == 0) {
 
-                    if(ilosc_wierszy!=ilosc_kolumn)
-                    {
-                        cout << "macierz nie jest kwadratowa\n";
-                        cout<< "podaj liczbe wierszy" << endl;
-                        ilosc_wierszy=wczytaj_liczbe();
-                        cout<< "podaj liczbe kolumn" << endl;
-                        ilosc_kolumn=wczytaj_liczbe();
-                        while(ilosc_wierszy!=ilosc_kolumn)
-                        {
+                matrixSize.first = 1 + rand() % (10 - 2);
+
+                matrixSize.second = 1 + rand() % (10 - 2);
+
+                double wybor_dolny = -100 + (double) rand() / RAND_MAX * (200);
+
+                double wybor_gorny = -100 + (double) rand() / RAND_MAX * (200);
+                int x = 1 + rand() % (10 - 2);
+                WK = new int[matrixSize.second];              // tworzymy wiersz kolumn
+
+                for (i = 0; i < matrixSize.second; i++)         // wypełniamy go numerami kolumn
+                    WK[i] = i;
+                cout << determinantMatrix(matrixSize.first,0,WK, matrixGenerate(matrixSize,wybor_dolny,wybor_gorny))<<endl;
+
+            } else {
+
+                do {
+                    cout << "WYZNACZNIK MACIERZY\n"
+                            "---------------------\n";
+                    cout << "1-Macierze int\n"
+                            "2-Macierze double\n";
+                    x = wczytaj_liczbe();
+                    if (x == 1) {
+                        cout << "podaj liczbe wierszy" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "podaj liczbe kolumn" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
+
+                        if (ilosc_wierszy != ilosc_kolumn) {
                             cout << "macierz nie jest kwadratowa\n";
-                            cout<< "podaj liczbe wierszy" << endl;
-                            ilosc_wierszy=wczytaj_liczbe();
-                            cout<< "podaj liczbe kolumn" << endl;
-                            ilosc_kolumn=wczytaj_liczbe();
+                            cout << "podaj liczbe wierszy" << endl;
+                            ilosc_wierszy = wczytaj_liczbe();
+                            cout << "podaj liczbe kolumn" << endl;
+                            ilosc_kolumn = wczytaj_liczbe();
+                            while (ilosc_wierszy != ilosc_kolumn) {
+                                cout << "macierz nie jest kwadratowa\n";
+                                cout << "podaj liczbe wierszy" << endl;
+                                ilosc_wierszy = wczytaj_liczbe();
+                                cout << "podaj liczbe kolumn" << endl;
+                                ilosc_kolumn = wczytaj_liczbe();
+                            }
                         }
+
+                        A = dynamiczna_alokacja(ilosc_wierszy, ilosc_kolumn);          // tworzymy macierz wskaźników
+
+                        wpisz_tabA(A, ilosc_wierszy, ilosc_kolumn);
+
+                        WK = new int[ilosc_kolumn];              // tworzymy wiersz kolumn
+
+                        for (i = 0; i < ilosc_kolumn; i++)         // wypełniamy go numerami kolumn
+                            WK[i] = i;
+
+                        cout << endl;
+
+                        cout << determinantMatrix(ilosc_kolumn, 0, WK, A) << endl; // obliczamy i wyświetlamy wyznacznik
+
+                        delete[] WK;                   // usuwamy tablice dynamiczne
+
+                        zwalnianie_pamieci_macierz(A, ilosc_kolumn);
+                    } else if (x == 2) {
+
+                        cout << "podaj liczbe wierszy" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "podaj liczbe kolumn" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
+
+                        if (ilosc_wierszy != ilosc_kolumn) {
+                            cout << "macierz nie jest kwadratowa\n";
+                            cout << "podaj liczbe wierszy" << endl;
+                            ilosc_wierszy = wczytaj_liczbe();
+                            cout << "podaj liczbe kolumn" << endl;
+                            ilosc_kolumn = wczytaj_liczbe();
+                            while (ilosc_wierszy != ilosc_kolumn) {
+                                cout << "macierz nie jest kwadratowa\n";
+                                cout << "podaj liczbe wierszy" << endl;
+                                ilosc_wierszy = wczytaj_liczbe();
+                                cout << "podaj liczbe kolumn" << endl;
+                                ilosc_kolumn = wczytaj_liczbe();
+                            }
+                        }
+
+                        tabAD = dynamiczna_alokacja_double(ilosc_wierszy,
+                                                           ilosc_kolumn);          // tworzymy macierz wskaźników
+
+                        wpisz_tabA(tabAD, ilosc_wierszy, ilosc_kolumn);
+
+                        WK = new int[ilosc_kolumn];              // tworzymy wiersz kolumn
+
+                        for (i = 0; i < ilosc_kolumn; i++)         // wypełniamy go numerami kolumn
+                            WK[i] = i;
+
+                        cout << endl;
+
+                        cout << determinantMatrix(ilosc_kolumn, 0, WK, tabAD)
+                             << endl; // obliczamy i wyświetlamy wyznacznik
+
+                        delete[] WK;                   // usuwamy tablice dynamiczne
+
+                        zwalnianie_pamieci_macierz(tabAD, ilosc_kolumn);
                     }
 
-                    A = dynamiczna_alokacja(ilosc_wierszy,ilosc_kolumn);          // tworzymy macierz wskaźników
-
-                    wpisz_tabA(A,ilosc_wierszy,ilosc_kolumn);
-
-                    WK = new int [ ilosc_kolumn ];              // tworzymy wiersz kolumn
-
-                    for( i = 0; i < ilosc_kolumn; i++ )         // wypełniamy go numerami kolumn
-                        WK [ i ] = i;
-
-                    cout << endl;
-
-                    cout << determinantMatrix ( ilosc_kolumn, 0, WK, A ) << endl; // obliczamy i wyświetlamy wyznacznik
-
-                    delete [ ] WK;                   // usuwamy tablice dynamiczne
-
-                    zwalnianie_pamieci_macierz(A, ilosc_kolumn);
-                }
-                else if(x==2)
-                {
-
-                    cout<< "podaj liczbe wierszy" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout<< "podaj liczbe kolumn" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
-
-                    if(ilosc_wierszy!=ilosc_kolumn)
-                    {
-                        cout << "macierz nie jest kwadratowa\n";
-                        cout<< "podaj liczbe wierszy" << endl;
-                        ilosc_wierszy=wczytaj_liczbe();
-                        cout<< "podaj liczbe kolumn" << endl;
-                        ilosc_kolumn=wczytaj_liczbe();
-                        while(ilosc_wierszy!=ilosc_kolumn)
-                        {
-                            cout << "macierz nie jest kwadratowa\n";
-                            cout<< "podaj liczbe wierszy" << endl;
-                            ilosc_wierszy=wczytaj_liczbe();
-                            cout<< "podaj liczbe kolumn" << endl;
-                            ilosc_kolumn=wczytaj_liczbe();
-                        }
-                    }
-
-                    tabAD = dynamiczna_alokacja_double(ilosc_wierszy,ilosc_kolumn);          // tworzymy macierz wskaźników
-
-                    wpisz_tabA(tabAD,ilosc_wierszy,ilosc_kolumn);
-
-                    WK = new int [ ilosc_kolumn ];              // tworzymy wiersz kolumn
-
-                    for( i = 0; i < ilosc_kolumn; i++ )         // wypełniamy go numerami kolumn
-                        WK [ i ] = i;
-
-                    cout << endl;
-
-                    cout << determinantMatrix ( ilosc_kolumn, 0, WK, tabAD ) << endl; // obliczamy i wyświetlamy wyznacznik
-
-                    delete [ ] WK;                   // usuwamy tablice dynamiczne
-
-                    zwalnianie_pamieci_macierz(tabAD, ilosc_kolumn);
-                }
-
-            }while (x!=1 && x!=2);
+                } while (x != 1 && x != 2);
+            }
 
         }
-        else if ((!strcmp(argv[1], "matrixIsDiagonal") || choice == "matrixIsDiagonal"))
+        else if ((!strcmp(argv[1], "matrixIsDiagonal") || choice == "matrixIsDiagonal" ))
         {
 
             bool ok;
+            if ((argc == 3) && _stricmp( argv[2], "generate" ) == 0) {
+                matrixSize.first = 1 + rand() % (10 - 2);
 
-            do {
-                cout << "1-Macierze int\n"
-                        "2-Macierze double\n";
-                x=wczytaj_liczbe();
-                if(x==1)
-                {
-                    cout<< "podaj liczbe wierszy" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout<< "podaj liczbe kolumn" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
+                matrixSize.second = 1 + rand() % (10 - 2);
 
-                    if(ilosc_wierszy!=ilosc_kolumn)
-                    {
-                        cout << "macierz nie jest kwadratowa\n";
-                        cout<< "podaj liczbe wierszy" << endl;
-                        ilosc_wierszy=wczytaj_liczbe();
-                        cout<< "podaj liczbe kolumn" << endl;
-                        ilosc_kolumn=wczytaj_liczbe();
-                        while(ilosc_wierszy!=ilosc_kolumn)
-                        {
+                double wybor_dolny = -100 + (double) rand() / RAND_MAX * (200);
+
+                double wybor_gorny = -100 + (double) rand() / RAND_MAX * (200);
+                int x = 1 + rand() % (10 - 2);
+                cout<< matrixIsDiagonal(matrixGenerate(matrixSize, wybor_dolny, wybor_gorny),matrixSize.first,matrixSize.second)<<endl;
+
+            } else {
+
+                do {
+                    cout << "CZY MACIERZ JEST DIAGONALNA\n"
+                            "---------------------\n";
+                    cout << "1-Macierze int\n"
+                            "2-Macierze double\n";
+                    x = wczytaj_liczbe();
+                    if (x == 1) {
+                        cout << "podaj liczbe wierszy" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "podaj liczbe kolumn" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
+
+                        if (ilosc_wierszy != ilosc_kolumn) {
                             cout << "macierz nie jest kwadratowa\n";
-                            cout<< "podaj liczbe wierszy" << endl;
-                            ilosc_wierszy=wczytaj_liczbe();
-                            cout<< "podaj liczbe kolumn" << endl;
-                            ilosc_kolumn=wczytaj_liczbe();
+                            cout << "podaj liczbe wierszy" << endl;
+                            ilosc_wierszy = wczytaj_liczbe();
+                            cout << "podaj liczbe kolumn" << endl;
+                            ilosc_kolumn = wczytaj_liczbe();
+                            while (ilosc_wierszy != ilosc_kolumn) {
+                                cout << "macierz nie jest kwadratowa\n";
+                                cout << "podaj liczbe wierszy" << endl;
+                                ilosc_wierszy = wczytaj_liczbe();
+                                cout << "podaj liczbe kolumn" << endl;
+                                ilosc_kolumn = wczytaj_liczbe();
+                            }
                         }
-                    }
 
-                    tabA = dynamiczna_alokacja(ilosc_wierszy,ilosc_kolumn);
+                        tabA = dynamiczna_alokacja(ilosc_wierszy, ilosc_kolumn);
 
-                    wpisz_tabA(tabA,ilosc_wierszy,ilosc_kolumn);
+                        wpisz_tabA(tabA, ilosc_wierszy, ilosc_kolumn);
 
 
-                    ok=matrixIsDiagonal(tabA,ilosc_wierszy,ilosc_kolumn);
-                    if(ok==1)
-                    {
-                        cout << "Macierz jest diagonalna"  << endl;
-                    }
-                    else
-                    {
-                        cout << "Macierz nie jest diagonalna" << endl;
-                    }
+                        ok = matrixIsDiagonal(tabA, ilosc_wierszy, ilosc_kolumn);
+                        if (ok == 1) {
+                            cout << "Macierz jest diagonalna" << endl;
+                        } else {
+                            cout << "Macierz nie jest diagonalna" << endl;
+                        }
 
-                }
-                else if(x==2)
-                {
-                    cout<< "podaj liczbe wierszy" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout<< "podaj liczbe kolumn" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
+                    } else if (x == 2) {
+                        cout << "podaj liczbe wierszy" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "podaj liczbe kolumn" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
 
-                    if(ilosc_wierszy!=ilosc_kolumn)
-                    {
-                        cout << "macierz nie jest kwadratowa\n";
-                        cout<< "podaj liczbe wierszy" << endl;
-                        ilosc_wierszy=wczytaj_liczbe();
-                        cout<< "podaj liczbe kolumn" << endl;
-                        ilosc_kolumn=wczytaj_liczbe();
-                        while(ilosc_wierszy!=ilosc_kolumn)
-                        {
+                        if (ilosc_wierszy != ilosc_kolumn) {
                             cout << "macierz nie jest kwadratowa\n";
-                            cout<< "podaj liczbe wierszy" << endl;
-                            ilosc_wierszy=wczytaj_liczbe();
-                            cout<< "podaj liczbe kolumn" << endl;
-                            ilosc_kolumn=wczytaj_liczbe();
+                            cout << "podaj liczbe wierszy" << endl;
+                            ilosc_wierszy = wczytaj_liczbe();
+                            cout << "podaj liczbe kolumn" << endl;
+                            ilosc_kolumn = wczytaj_liczbe();
+                            while (ilosc_wierszy != ilosc_kolumn) {
+                                cout << "macierz nie jest kwadratowa\n";
+                                cout << "podaj liczbe wierszy" << endl;
+                                ilosc_wierszy = wczytaj_liczbe();
+                                cout << "podaj liczbe kolumn" << endl;
+                                ilosc_kolumn = wczytaj_liczbe();
+                            }
                         }
+
+                        tabAD = dynamiczna_alokacja_double(ilosc_wierszy, ilosc_kolumn);
+
+                        wpisz_tabA(tabAD, ilosc_wierszy, ilosc_kolumn);
+
+                        // tutaj jeszcze kurwa musze dodacdouble
+                        ok = matrixIsDiagonal(tabA, ilosc_wierszy, ilosc_kolumn);
+                        if (ok == 1) {
+                            cout << "Macierz jest diagonalna" << endl;
+                        } else {
+                            cout << "Macierz nie jest diagonalna" << endl;
+                        }
+
                     }
 
-                    tabAD = dynamiczna_alokacja_double(ilosc_wierszy,ilosc_kolumn);
-
-                    wpisz_tabA(tabAD,ilosc_wierszy,ilosc_kolumn);
-
-                    // tutaj jeszcze kurwa musze dodacdouble
-                    ok=matrixIsDiagonal(tabA,ilosc_wierszy,ilosc_kolumn);
-                    if(ok==1)
-                    {
-                        cout << "Macierz jest diagonalna"  << endl;
-                    }
-                    else
-                    {
-                        cout << "Macierz nie jest diagonalna" << endl;
-                    }
-
-                }
-
-            }while (x!=1 && x!=2);
+                } while (x != 1 && x != 2);
+            }
         }
         else if ((!strcmp(argv[1], "swap") || choice == "swap"))
         {
             int a,b;
+
             do {
                 cout << "1-Macierze int\n"
                         "2-Macierze double\n";
@@ -560,6 +682,8 @@ int main(int argc, char *argv[]) {
             int *tab;
             double *tabD;
             do {
+                cout << "SORTOWANIE TABLICY\n"
+                        "---------------------\n";
                 cout << "1-Macierze int\n"
                         "2-Macierze double\n";
                 x=wczytaj_liczbe();
@@ -576,7 +700,7 @@ int main(int argc, char *argv[]) {
                         tab[i]=wczytaj_liczbe();
                     }
 
-                    sortRow(ilosc_kolumn,tab);
+                    sortRow(tab,ilosc_kolumn);
                     for(int i=0;i<ilosc_kolumn;i++)
                         cout<<tab[i]<<" ";
                     cout << endl;
@@ -596,7 +720,7 @@ int main(int argc, char *argv[]) {
                         tabD[i]=wczytaj_liczbe_double();
                     }
 
-                    sortRow(ilosc_kolumn,tabD);
+                    sortRow(tabD,ilosc_kolumn);
                     for(int i=0;i<ilosc_kolumn;i++)
                         cout<<tabD[i]<<" ";
                     cout << endl;
@@ -604,46 +728,97 @@ int main(int argc, char *argv[]) {
                 }
             }while (x!=1 && x!=2);
         }
-        else if ((!strcmp(argv[1], "sortInMatrix") || choice == "sortInMatrix"))
+        else if ((!strcmp(argv[1], "sortRowsInMatrix") || choice == "sortRowsInMatrix"))
         {
+            if ((!strcmp(argv[1], "sortRowsInMatrix") && (argc == 3) && _stricmp( argv[2], "generate" ) == 0)) {
+                matrixSize.first = 1 + rand() % (10 - 2);
+
+                matrixSize.second = 1 + rand() % (10 - 2);
+
+                double wybor_dolny = -100 + (double) rand() / RAND_MAX * (200);
+
+                double wybor_gorny = -100 + (double) rand() / RAND_MAX * (200);
+                int x = 1 + rand() % (10 - 2);
+
+                odczyt(sortRowsInMatrix(matrixGenerate(matrixSize, wybor_dolny, wybor_gorny),
+                                         matrixSize.first,  matrixSize.second),
+                       matrixSize.first,  matrixSize.second);
+            } else {
+                do {
+                    cout << "SORTOWANIE WIERSZY MACIERZY\n"
+                            "---------------------\n";
+                    cout << "1-Macierze int\n"
+                            "2-Macierze double\n";
+                    x = wczytaj_liczbe();
+                    if (x == 1) {
+                        cout << "podaj liczbe wierszy" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "podaj liczbe kolumn" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
+
+                        tabA = dynamiczna_alokacja(ilosc_wierszy, ilosc_kolumn);
+
+                        wpisz_tabA(tabA, ilosc_wierszy, ilosc_kolumn);
+
+                        sortRowsInMatrix(tabA, ilosc_wierszy, ilosc_kolumn);
+
+                        odczyt(tabA, ilosc_wierszy, ilosc_kolumn);
+                        zwalnianie_pamieci_macierz(tabA, ilosc_wierszy);
+                    } else if (x == 2) {
+                        cout << "podaj liczbe wierszy" << endl;
+                        ilosc_wierszy = wczytaj_liczbe();
+                        cout << "podaj liczbe kolumn" << endl;
+                        ilosc_kolumn = wczytaj_liczbe();
+
+                        tabAD = dynamiczna_alokacja_double(ilosc_wierszy, ilosc_kolumn);
+
+                        wpisz_tabA(tabAD, ilosc_wierszy, ilosc_kolumn);
+
+                        odczyt_double(sortRowsInMatrix(tabAD, ilosc_wierszy, ilosc_kolumn),ilosc_wierszy,ilosc_kolumn);
+
+                        odczyt_double(tabAD, ilosc_wierszy, ilosc_kolumn);
+                        zwalnianie_pamieci_macierz(tabAD, ilosc_wierszy);
+                    }
+
+                } while (x != 1 && x != 2);
+            }
+        }
+        else if ((!strcmp(argv[1], "matrixGenerate") || choice == "matrixGenerate"))
+        {
+
+
+
+
             do {
                 cout << "1-Macierze int\n"
                         "2-Macierze double\n";
                 x=wczytaj_liczbe();
                 if(x==1)
                 {
-                    cout<< "podaj liczbe wierszy" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout<< "podaj liczbe kolumn" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
-
-                    tabA = dynamiczna_alokacja(ilosc_wierszy,ilosc_kolumn);
-
-                    wpisz_tabA(tabA,ilosc_wierszy,ilosc_kolumn);
-
-                    sortRowsInMatrix(tabA,ilosc_wierszy,ilosc_kolumn);
-
-                    odczyt(tabA,ilosc_wierszy,ilosc_kolumn);
-                    zwalnianie_pamieci_macierz(tabA, ilosc_wierszy);
+                    cout << "Podaj ilosc wierzy";
+                    matrixSize.first = wczytaj_liczbe();
+                    cout << "Podaj ilosc kolumn";
+                    matrixSize.second = wczytaj_liczbe();
+                    cout<< "Podaj dolny zakres losowania liczb" << endl;
+                    int wybor_dolny = wczytaj_liczbe();
+                    cout<< "Podaj gorny zakres losowania liczb" << endl;
+                    int wybor_gorny = wczytaj_liczbe();
+                    odczyt(matrixGenerate(matrixSize,wybor_dolny,wybor_gorny),matrixSize.first, matrixSize.second);
                 }
                 else if(x==2)
                 {
-                    cout<< "podaj liczbe wierszy" << endl;
-                    ilosc_wierszy=wczytaj_liczbe();
-                    cout<< "podaj liczbe kolumn" << endl;
-                    ilosc_kolumn=wczytaj_liczbe();
-
-                    tabAD = dynamiczna_alokacja_double(ilosc_wierszy,ilosc_kolumn);
-
-                    wpisz_tabA(tabAD,ilosc_wierszy,ilosc_kolumn);
-
-                    sortRowsInMatrix(tabAD,ilosc_wierszy,ilosc_kolumn);
-
-                    odczyt_double(tabAD,ilosc_wierszy,ilosc_kolumn);
-                    zwalnianie_pamieci_macierz(tabAD, ilosc_wierszy);
+                    cout << "Podaj ilosc wierzy";
+                    matrixSize.first = wczytaj_liczbe();
+                    cout << "Podaj ilosc kolumn";
+                    matrixSize.second = wczytaj_liczbe();
+                    cout<< "Podaj dolny zakres losowania liczb" << endl;
+                    double wybor_dolny = wczytaj_liczbe_double();
+                    cout<< "Podaj gorny zakres losowania liczb" << endl;
+                    double wybor_gorny = wczytaj_liczbe_double();
+                    odczyt(matrixGenerate(matrixSize,wybor_dolny,wybor_gorny),matrixSize.first, matrixSize.second);
                 }
-
             }while (x!=1 && x!=2);
+
         }
         else if((!strcmp(argv[1], "help") || choice == "help"))
         {
@@ -671,6 +846,7 @@ int main(int argc, char *argv[]) {
                 "swap - zamiana dwoch wartosci miejscami\n"
                 "sortRow - sortowanie tablicy za pomoca sortowania bombelkowego\n"
                 "sortRowsInMatrix - sortowanie wszystkich wierszy w macierzy\n"
+                "matrixGenerate - wypelnienie macierzy losowymi liczbami\n"
                 "help - pomoc, dokumentacja\n"
                 "exit - wyjscie z programu\n";
         cout << "\nPodaj nazwe dzialania\n" << endl;
