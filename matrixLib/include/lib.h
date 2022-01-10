@@ -1,3 +1,4 @@
+using namespace std;
 /**
  *
  * @param tabA macierz A typu int przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
@@ -22,7 +23,6 @@ double **addMatrix(double **tabA,double **tabB,int ilosc_wierszy,int ilosc_kolum
  *
  * @param tabA macierz A typu int przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
  * @param tabB macierz B typu int przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
- * @param W macierz wynikowa typu int, roznica z odejmowania macierzy A i B
  * @param ilosc_wierszy zmienna przechowujaca ilosc wierszy w macierzy
  * @param ilosc_kolumn zmienna przechowujaca ilosc kolumn w macierzy
  * @details wartosci z poszczegolnych kolumn i wierszy z macierzy A i B  odejmowane sa do siebie i zapisywane do macierzy wynikowej W
@@ -33,7 +33,6 @@ int **subtractMatrix (int **tabA,int **tabB,int ilosc_wierszy,int ilosc_kolumn);
  *
  * @param tabA macierz A typu double przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
  * @param tabB macierz A typu double przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
- * @param W macierz wynikowa typu double, roznica z odejmowania macierzy A i B
  * @param ilosc_wierszy zmienna przechowujaca ilosc wierszy w macierzy
  * @param ilosc_kolumn zmienna przechowujaca ilosc kolumn w macierzy
  * @details wartosci z poszczegolnych kolumn i wierszy z macierzy A i B  odejmowane sa od siebie i zapisywane do macierzy wynikowej W
@@ -44,7 +43,6 @@ double **subtractMatrix (double **tabA,double **tabB,int ilosc_wierszy,int ilosc
  *
  * @param tabA macierz A typu int przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
  * @param tabB macierz B typu int przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
- * @param W  macierz wynikowa typu int, iloczynu macierzy A i B
  * @param ilosc_wierszy zmienna przechowujaca ilosc wierszy w macierzy
  * @param ilosc_kolumn zmienna przechowujaca ilosc kolumn w macierzy
  * @param ilosc_kolumn_macierzB zmienna przechowujaca ilosc kolumn w macierzy B
@@ -57,7 +55,6 @@ int **multiplyMatrix(int **tabA,int **tabB,int ilosc_wierszy,int ilosc_kolumn,in
  *
  * @param tabA macierz A typu double przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
  * @param tabB macierz B typu double przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
- * @param W macierz wynikowa typu double, iloczynu macierzy A i B
  * @param ilosc_wierszy zmienna przechowujaca ilosc wierszy w macierzy
  * @param ilosc_kolumn zmienna przechowujaca ilosc kolumn w macierzy
  * @param ilosc_kolumn_macierzB zmienna przechowujaca ilosc kolumn w macierzy B
@@ -66,25 +63,23 @@ int **multiplyMatrix(int **tabA,int **tabB,int ilosc_wierszy,int ilosc_kolumn,in
  * @return macierz wynikowa typu double, podwojny wskaznik
  */
 double **multiplyMatrix(double **tabA,double **tabB,int ilosc_wierszy,int ilosc_kolumn,int ilosc_kolumn_macierzB);
-/*/**
- *
- * @param tabA macierz A typu int przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
+/**
+ * 
+ * @param tabA macierz A typu int przekazywana do funkcji
  * @param ilosc_wierszy zmienna przechowujaca ilosc wierszy w macierzy
  * @param ilosc_kolumn zmienna przechowujaca ilosc kolumn w macierzy
- * @param c  zmienna przechowujaca skalar typu int
- * @details  W mnożeniu macierzy przez skalar, każdy element macierzy zostaje pomnożony przez daną liczbę, czyli skalar.
- * @return tabA macierz A typu int po mnozeniu przez skalar
+ * @param c zmienna przechowujaca skalar typu int
+ * @return W zwraca macierz pomnozona przez skalar
  */
 int **multiplyByScalar(int **tabA,int ilosc_wierszy,int ilosc_kolumn,int c);
-/*/**
- *
- * @param tabA macierz A typu double przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
+/**
+ * 
+ * @param tabA macierz A typu double przekazywana do funkcji
  * @param ilosc_wierszy zmienna przechowujaca ilosc wierszy w macierzy
  * @param ilosc_kolumn zmienna przechowujaca ilosc kolumn w macierzy
  * @param c zmienna przechowujaca skalar typu double
- * @details  W mnożeniu macierzy przez skalar, każdy element macierzy zostaje pomnożony przez daną liczbę, czyli skalar.
- * @return tabA macierz A typu double po mnozeniu przez skalar
- //*/
+ * @return W zwraca macierz pomnozona przez skalar
+ */
 double **multiplyByScalar(double **tabA,int ilosc_wierszy,int ilosc_kolumn,double c);
 /**
  *
@@ -200,15 +195,26 @@ int *sortRow(int*t , int ilosc_kolumn);
  * @return zwraca tablice t posortowana
  */
 double *sortRow(double *t, int ilosc_kolumn);
-
-int **sortRowsInMatrix (int **tabA,int ilosc_wierszy,int ilosc_kolumn);
-
-double **sortRowsInMatrix (double **tabA,int ilosc_wierszy,int ilosc_kolumn);
 /**
  *
- * @return W
+ * @param tabA
+ * @param ilosc_wierszy
+ * @param ilosc_kolumn
+ * @details funkcja sortująca wiersze w macierzy
+ * @return W posortowana macierz
  */
-int **matrixGenerate(std::pair <int,int>,int wybor_dolny,int wybor_gorny);
+int **sortRowsInMatrix (int **tabA,int ilosc_wierszy,int ilosc_kolumn);
+/**
+ *
+ * @param tabA
+ * @param ilosc_wierszy
+ * @param ilosc_kolumn
+ * @details funkcja sortująca wiersze w macierzy
+ * @return W posortowana macierz
+ */
+double **sortRowsInMatrix (double **tabA,int ilosc_wierszy,int ilosc_kolumn);
+int **matrixGenerate(pair <int,int>,int wybor_dolny,int wybor_gorny);
+double **matrixGenerate(pair <int ,int > matrixSize, double wybor_dolny, double wybor_gorny);
 int wpisz_tabA (int** tabA,int ilosc_wierszy , int ilosc_kolumn);
 double wpisz_tabA (double** tabA,int ilosc_wierszy , int ilosc_kolumn);
 int wpisz_tabB (int** tabB,int ilosc_wierszy , int ilosc_kolumn);

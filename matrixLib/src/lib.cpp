@@ -15,7 +15,6 @@ int **addMatrix(int **tabA,int **tabB,int ilosc_wierszy,int ilosc_kolumn)
         for( ik = 0; ik < ilosc_kolumn; ik++ )
             W [ iw ][ ik ] = tabA [ iw ][ ik ] + tabB [ iw ][ ik ];
 
-
     return  W;
 
 }
@@ -23,12 +22,9 @@ double **addMatrix(double **tabA,double **tabB,int ilosc_wierszy,int ilosc_kolum
 {
     int iw,ik;
     double **W = dynamiczna_alokacja_double( ilosc_wierszy, ilosc_kolumn);
-
-
     for( iw = 0; iw < ilosc_wierszy; iw++ )
         for( ik = 0; ik < ilosc_kolumn; ik++ )
             W [ iw ][ ik ] = tabA [ iw ][ ik ] + tabB [ iw ][ ik ];
-
 
     return  W;
 
@@ -190,8 +186,6 @@ int **multiplyMatrix(int **tabA,int **tabB,int ilosc_wierszy,int ilosc_kolumn,in
     int i, j, k, s;
     int **W = dynamiczna_alokacja( ilosc_wierszy, ilosc_kolumn);
 
-
-
     for( i = 0; i < ilosc_wierszy; i++ )
         for( j = 0; j < ilosc_kolumn_macierzB; j++ )
         {
@@ -307,7 +301,6 @@ int determinantMatrix ( int ilosc_kolumn, int w, int * WK, int ** tabA ) {
     int i, j, k, m, *KK;
     int s;
 
-
     if (ilosc_kolumn == 1)                     // sprawdzamy warunek zakończenia rekurencji
 
         return tabA[w][WK[0]];    // macierz 1 x 1, wyznacznik równy elementowi
@@ -392,7 +385,6 @@ bool matrixIsDiagonal(int **tabA,int ilosc_wierszy,int ilosc_kolumn)
     int i,j;
     bool ok=true;
 
-
     for (i = 0; i < ilosc_wierszy; i++)
         for (j = 0; j < ilosc_kolumn; j++)
             if (i == j)
@@ -411,10 +403,8 @@ bool matrixIsDiagonal(int **tabA,int ilosc_wierszy,int ilosc_kolumn)
 
 bool matrixIsDiagonal(double **tabA,int ilosc_wierszy,int ilosc_kolumn)
 {
-
     int i,j;
     bool ok=true;
-
 
     for (i = 0; i < ilosc_wierszy; i++)
         for (j = 0; j < ilosc_kolumn; j++)
@@ -433,12 +423,10 @@ bool matrixIsDiagonal(double **tabA,int ilosc_wierszy,int ilosc_kolumn)
 }
 int *sortRow(int *t , int ilosc_kolumn)
 {
-
     for (int pocz=0; pocz < ilosc_kolumn-1; pocz++)
         for (int i=0; i < ilosc_kolumn-pocz-1; i++)
             if (t[i] > t[i+1])
                 swap(t[i],t[i+1]);
-
     return t;
 }
 double *sortRow(double *t ,int ilosc_kolumn)
@@ -447,7 +435,6 @@ double *sortRow(double *t ,int ilosc_kolumn)
         for (int i=0; i < ilosc_kolumn-pocz-1; i++)
             if (t[i] > t[i+1])
                 swap(t[i],t[i+1]);
-
     return t;
 }
 int **sortRowsInMatrix (int **tabA,int ilosc_wierszy,int ilosc_kolumn)
@@ -488,11 +475,9 @@ int **matrixGenerate(pair <int ,int > matrixSize, int wybor_dolny, int wybor_gor
 
     srand(time(NULL));
 
-
    for(int iw = 0; iw < matrixSize.first; iw++ )
         for(int ik = 0; ik < matrixSize.second; ik++ )
             W [ iw ][ ik ] =wybor_dolny + rand()%(wybor_gorny+wybor_dolny+1);
-
 
     return W;
 
