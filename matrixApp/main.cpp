@@ -437,7 +437,6 @@ int main(int argc, char *argv[]) {
 
                         zwalnianie_pamieci_macierz(tabAD, ilosc_wierszy);
                     }
-
                 } while (x != 1 && x != 2);
             }
         }

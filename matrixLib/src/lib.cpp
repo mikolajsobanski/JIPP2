@@ -16,7 +16,6 @@ int **addMatrix(int **tabA,int **tabB,int ilosc_wierszy,int ilosc_kolumn)
             W [ iw ][ ik ] = tabA [ iw ][ ik ] + tabB [ iw ][ ik ];
 
     return  W;
-
 }
 double **addMatrix(double **tabA,double **tabB,int ilosc_wierszy,int ilosc_kolumn)
 {
@@ -27,7 +26,6 @@ double **addMatrix(double **tabA,double **tabB,int ilosc_wierszy,int ilosc_kolum
             W [ iw ][ ik ] = tabA [ iw ][ ik ] + tabB [ iw ][ ik ];
 
     return  W;
-
 }
 int** dynamiczna_alokacja(int ilosc_wierszy,int ilosc_kolumn)
 {

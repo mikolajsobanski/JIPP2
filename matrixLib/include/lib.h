@@ -212,6 +212,7 @@ int **sortRowsInMatrix (int **tabA,int ilosc_wierszy,int ilosc_kolumn);
  * @details funkcja sortująca wiersze w macierzy
  * @return W posortowana macierz
  */
+
 double **sortRowsInMatrix (double **tabA,int ilosc_wierszy,int ilosc_kolumn);
 int **matrixGenerate(pair <int,int>,int wybor_dolny,int wybor_gorny);
 double **matrixGenerate(pair <int ,int > matrixSize, double wybor_dolny, double wybor_gorny);
