@@ -111,7 +111,7 @@ double **transpozeMatrix(double **tabA,int ilosc_wierszy,int ilosc_kolumn);
  * @details funkcja potegujaca macierz A przez wybrany stopien potegi
  * @return macierz wynikowa, podniesiona do potegi n
  */
-int **powerMatrix(int **tabA,unsigned n,int ilosc_wierszy,int ilosc_kolumn);
+int **powerMatrix(int **tabA,int ilosc_wierszy,int ilosc_kolumn,unsigned n);
 /**
  *
  * @param tabA macierz A typu double przekazywana do funkcji o rozmiarze [ilosc_wierszy] [ilosc_kolumn]
@@ -122,7 +122,7 @@ int **powerMatrix(int **tabA,unsigned n,int ilosc_wierszy,int ilosc_kolumn);
  * @details funkcja potegujaca macierz A przez wybrany stopien potegi
  * @return macierz wynikowa, podniesiona do potegi n
  */
-double **powerMatrix(double **tabA,unsigned n,int ilosc_wierszy,int ilosc_kolumn);
+double **powerMatrix(double **tabA,int ilosc_wierszy,int ilosc_kolumn,unsigned n);
 /**
  *
  * @param ilosc_kolumn zmienna przechowujaca ilosc kolumn w macierzy
